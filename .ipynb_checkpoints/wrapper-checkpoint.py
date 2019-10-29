@@ -5,8 +5,8 @@ import csv
 def main():
     rfile = open(r'negex_triggers.txt')
     irules = sortRules(rfile.readlines())
-    reports = csv.reader(open('Annotations-1-120.txt','r'), delimiter = '\t')
-    next(reports)
+    reports = csv.reader(open(r'Annotations-1-120.txt','rb'), delimiter = '\t')
+    reports.next()
     reportNum = 0
     correctNum = 0
     ofile = open(r'negex_output.txt', 'w')
