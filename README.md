@@ -1,5 +1,5 @@
-# Negex para Python
-Este módulo localiza termos-chave em um laudo médico indicando se a condição médica é negada ou possível. 
+# easyNegex
+Este módulo localiza termos-chave em um laudo médico indicando se a condição médica é negada ou existente.
 
 Este projeto é uma **implementação em Python** do algorítmo **NegEx**, de Wendy Chapman
 
