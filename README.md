@@ -15,7 +15,7 @@ python -m pip install [colocar nome do módulo publicado]
 
 ## Modo interativo
 Rode o arquivo negex.py como um programa:
-![Intruções para modo interativo][demoInterativo.jpeg]
+![Intruções para modo interativo](demoInterativo.jpeg)
 
 ## Função de uso fácil
 Este módulo vem com uma função que facilita o uso do Negex:
