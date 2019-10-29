@@ -3,13 +3,14 @@ import csv
 
 
 def main():
-    rfile = open(r'negex_triggers.txt')
+    rfile = open('negex_triggers.txt', "r")
     irules = sortRules(rfile.readlines())
     reports = csv.reader(open('Annotations-1-120.txt','r'), delimiter = '\t')
     next(reports)
     reportNum = 0
     correctNum = 0
-    ofile = open(r'negex_output.txt', 'w')
+    ofile = open(
+        'negex_output.txt', 'w')
     output = []
     outputfile = csv.writer(ofile, delimiter = '\t')
     for report in reports:
