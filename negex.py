@@ -1,10 +1,9 @@
 import re
 import csv
+from typing import List
 
-# Negex Fácil
 
-
-def easyNg(trigPath: str, reprtPath: str, outPath: str) -> None:
+def easyNg(trigPath: str, reprtPath: str, outPath: str, checkResults: bool = False) -> None:
     """Apply the negex to the specified report file using the specified triggers file and saves the result on the specified output file
 
        trigPath should be the path to the triggers file
@@ -24,6 +23,7 @@ def easyNg(trigPath: str, reprtPath: str, outPath: str) -> None:
     # Output
     outFile = open(
         outPath, 'w')
+
     # Initial setup for variables
     reportNum = 0
     correctNum = 0
@@ -36,37 +36,43 @@ def easyNg(trigPath: str, reprtPath: str, outPath: str) -> None:
                            report[1]], rules=irules, negP=False)
         report.append(tagger.getNegTaggedSentence())
         report.append(tagger.getNegationFlag())
-        report = report + tagger.getScopes()
+        report += tagger.getScopes()
         reportNum += 1
+        output.append(report)
+
+    # Check accuracy (if enabled)
+    if checkResults:
         if report[3].lower() == report[5]:
             correctNum += 1
-        output.append(report)
-    outputfile.writerow(
-        ['Percentage correct:', float(correctNum)/float(reportNum)])
+        outputfile.writerow(
+            ['Percentage correct:', float(correctNum)/float(reportNum)])
 
-   # Save output
+    # Save output
     for row in output:
         if row:
             outputfile.writerow(row)
     outFile.close()
 
 
-def sortRules(ruleList):
+def sortRules(ruleList: List[str]):
     """Return sorted list of rules.
 
     Rules should be in a tab-delimited format: 'rule\t\t[four letter negation tag]'
     Sorts list of rules descending based on length of the rule, 
     splits each rule into components, converts pattern to regular expression,
     and appends it to the end of the rule. """
+    # Sort the list by length, from greatest to smallest
     ruleList.sort(key=len, reverse=True)
     sortedList = []
+
+    # Formats the triggers using regex and save them into sortedList
     for rule in ruleList:
-        s = rule.strip().split('\t')
-        splitTrig = s[0].split()
+        cleanList = rule.strip().split('\t')  # Cleanup trigger and split at tab
+        splitTrig = cleanList[0].split()
         trig = r'\s+'.join(splitTrig)
         pattern = r'\b(' + trig + r')\b'
-        s.append(re.compile(pattern, re.IGNORECASE))
-        sortedList.append(s)
+        cleanList.append(re.compile(pattern, re.IGNORECASE))
+        sortedList.append(cleanList)
     return sortedList
 
 
@@ -107,13 +113,13 @@ class negTagger(object):
                                                           + re.sub(r'\s+', filler, m.group(0).strip())
                                                           + '[PHRASE]')
 
-#        Exchanges the [PHRASE] ... [PHRASE] tags for [NEGATED] ... [NEGATED]
-#        based on PREN, POST rules and if negPoss is set to True then based on
-#        PREP and POSP, as well.
-#        Because PRENEGATION [PREN} is checked first it takes precedent over
-#        POSTNEGATION [POST]. Similarly POSTNEGATION [POST] takes precedent over
-#        POSSIBLE PRENEGATION [PREP] and [PREP] takes precedent over POSSIBLE
-#        POSTNEGATION [POSP].
+                # Exchanges the [PHRASE] ... [PHRASE] tags for [NEGATED] ... [NEGATED]
+                # based on PREN, POST rules and if negPoss is set to True then based on
+                # PREP and POSP, as well.
+                # Because PRENEGATION [PREN} is checked first it takes precedent over
+                # POSTNEGATION [POST]. Similarly POSTNEGATION [POST] takes precedent over
+                # POSSIBLE PRENEGATION [PREP] and [PREP] takes precedent over POSSIBLE
+                # POSTNEGATION [POSP].
 
         overlapFlag = 0
         prenFlag = 0
@@ -283,6 +289,8 @@ if __name__ == "__main__":
     # easyNg(input("\nPath dos Triggers:\n"), input(
         # "\nPath dos reports:\n"), input("\nPath do output:\n"))
 
-    easyNg('demo/triggers.txt', 'demo/reports.txt', 'demo/output.txt')
+    print('Digite os paths para:')
+    easyNg('Triggers', 'Reports', 'Output', input(
+        'O seu arquivo de reports contém conteúdo para verificação? '))
 
-    print("\n \n \n \n Pronto! Abra o arquivo de output para ver os resultados.")
+    print("\n \nPronto! Abra o arquivo de output para ver os resultados.")
