@@ -51,7 +51,7 @@ def easyNg(trigPath: str, reprtPath: str, outPath: str, checkResults: bool = Fal
     if checkResults:
         outputfile.writerow(
             ['Percentage correct:', float(correctNum)/float(reportNum)])
-        outputfile.writerow("Correct: " + str(correctReports))
+        outputfile.writerow(["Correct: " + str(correctReports)])
 
     # Save output
     for row in output:
