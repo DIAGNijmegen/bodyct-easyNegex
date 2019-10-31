@@ -41,9 +41,10 @@ def easyNg(trigPath: str, reprtPath: str, outPath: str, checkResults: bool = Fal
         output.append(report)
 
     # Check accuracy (if enabled)
+        if checkResults:
+            if report[3].lower() == report[5]:
+                correctNum += 1
     if checkResults:
-        if report[3].lower() == report[5]:
-            correctNum += 1
         outputfile.writerow(
             ['Percentage correct:', float(correctNum)/float(reportNum)])
 
