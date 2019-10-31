@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import re
 import csv
 from typing import List
