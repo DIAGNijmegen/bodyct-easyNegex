@@ -54,21 +54,19 @@ def easyNg(trigPath: str, reprtPath: str, outPath: str) -> None:
 def sortRules(ruleList):
     """Return sorted list of rules.
 
-    Rules should be in a tab-delimited format: 'rule,[four letter negation tag]'
+    Rules should be in a tab-delimited format: 'rule\t\t[four letter negation tag]'
     Sorts list of rules descending based on length of the rule, 
     splits each rule into components, converts pattern to regular expression,
     and appends it to the end of the rule. """
     ruleList.sort(key=len, reverse=True)
     sortedList = []
-
     for rule in ruleList:
-        s = rule.strip().split('&')
+        s = rule.strip().split('\t')
         splitTrig = s[0].split()
         trig = r'\s+'.join(splitTrig)
         pattern = r'\b(' + trig + r')\b'
         s.append(re.compile(pattern, re.IGNORECASE))
         sortedList.append(s)
-
     return sortedList
 
 
@@ -94,9 +92,9 @@ class negTagger(object):
 
         for rule in self.__rules:
             reformatRule = re.sub(r'\s+', filler, rule[0].strip())
-            self.__sentence = rule[2].sub(' ' + rule[1].strip()
+            self.__sentence = rule[3].sub(' ' + rule[2].strip()
                                           + reformatRule
-                                          + rule[1].strip() + ' ', self.__sentence)
+                                          + rule[2].strip() + ' ', self.__sentence)
         for phrase in self.__phrases:
             phrase = re.sub(r'([.^$*+?{\\|()[\]])', r'\\\1', phrase)
             splitPhrase = phrase.split()
@@ -280,7 +278,6 @@ class negTagger(object):
         text += '\t' + '\t'.join(self.__scopesToReturn)
 
 
-#
 # Interactive mode if not module
 if __name__ == "__main__":
     # easyNg(input("\nPath dos Triggers:\n"), input(
