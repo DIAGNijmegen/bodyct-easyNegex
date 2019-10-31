@@ -36,13 +36,13 @@ Este módulo vem com uma função que facilita o uso do Negex:
 O arquivo triggers associa textos às tags, que serão utilizadas para indetificar sintomas no laudo.
 ### Formato
 Este documento deve ser composto por sintomas e suas tags, separados por linhas. Ex:
-<pre>texto<strong>&</strong>[tag]
-outroTexto<strong>&</strong>[tag]
+<pre>texto      [tag]
+outroTexto      [tag]
 .
 .
 .
-maisTexto<strong>&</strong>[tag]</pre> 
-> Note que o '**&**' é utilizado como separador entre texto e [tag]
+maisTexto       [tag]</pre> 
+> Note que 2 <strong>tabs</strong> são usados como separador entre texto e [tag]
 
 
 ### Tags
@@ -52,15 +52,32 @@ maisTexto<strong>&</strong>[tag]</pre>
 - [POSP] - Pós possível negação
 - [PSEU] - Pseudo negação
 - [CONJ] - Conjunção
+
+## Report
+O formato do arquivo do report deve ser:
+<pre>
+Número do report    Frase       Affirmed/Negated
+Número do report    Frase       Affirmed/Negated
+.
+.
+.
+Número do report    Frase       Affirmed/Negated
+</pre>
+>A última coluna é necessária apenas para verificar os resultados (veja Medida de Acuracidade)
+
+> 1 tab é usado como separador entre as colunas
+
+## Output
+### Medida de Acuracidade
+Para medir a acuracidade dos triggers, habilite o parâmetro checkResults na invocação do easyNg:
+```python
+easyNg(..., checkResults=True)
+```
+
+### Tags
 - [PHRASE] - O termo foi reconhecido do arquivo de termos, e não foi negado
 - [NEGATED] - O termo foi reconhecido do arquivo de termos, e classificado como negação
 - [POSSIBLE] - O termo foi reconhecido do arquivo de termos, e classificado como possível negação
-
-## Report
----
-
-## Output
----
 
 # Créditos
 Projeto baseado em:
