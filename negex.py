@@ -290,7 +290,7 @@ if __name__ == "__main__":
         # "\nPath dos reports:\n"), input("\nPath do output:\n"))
 
     print('Digite os paths para:')
-    easyNg('Triggers', 'Reports', 'Output', input(
+    easyNg(input('Triggers:\n'), input('Reports:\n'), input('Output:\n'), input(
         'O seu arquivo de reports contém conteúdo para verificação? '))
 
     print("\n \nPronto! Abra o arquivo de output para ver os resultados.")
