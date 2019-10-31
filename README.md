@@ -56,14 +56,14 @@ maisTexto       [tag]</pre>
 ## Report
 O formato do arquivo do report deve ser:
 <pre>
-Número do report    Frase       Affirmed/Negated
-Número do report    Frase       Affirmed/Negated
+Número do report    Conceito    Frase       Affirmed/Negated
+Número do report    Conceito    Frase       Affirmed/Negated
 .
 .
 .
-Número do report    Frase       Affirmed/Negated
+Número do report    Conceito    Frase       Affirmed/Negated
 </pre>
->A última coluna é necessária apenas para verificar os resultados (veja Medida de Acuracidade)
+>A última coluna é necessária apenas para verificar os resultados (veja [Medida de Acuracidade](https://github.com/fuchsfelipel/easyNegex#medida-de-acuracidade))
 
 > 1 tab é usado como separador entre as colunas
 
