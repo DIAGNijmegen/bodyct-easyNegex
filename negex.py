@@ -31,6 +31,7 @@ def easyNg(trigPath: str, reprtPath: str, outPath: str, checkResults: bool = Fal
     correctNum = 0
     output = []
     outputfile = csv.writer(outFile, delimiter='\t')
+    correctReports = []
 
     # Negex Implementation
     for report in reports:
@@ -46,9 +47,11 @@ def easyNg(trigPath: str, reprtPath: str, outPath: str, checkResults: bool = Fal
         if checkResults:
             if report[3].lower() == report[5]:
                 correctNum += 1
+                correctReports.append(reportNum)
     if checkResults:
         outputfile.writerow(
             ['Percentage correct:', float(correctNum)/float(reportNum)])
+        outputfile.writerow("Correct: " + str(correctReports))
 
     # Save output
     for row in output:
@@ -292,8 +295,10 @@ if __name__ == "__main__":
     # easyNg(input("\nPath dos Triggers:\n"), input(
         # "\nPath dos reports:\n"), input("\nPath do output:\n"))
 
-    print('Digite os paths para:')
-    easyNg(input('Triggers:\n'), input('Reports:\n'), input('Output:\n'), input(
-        'O seu arquivo de reports contém conteúdo para verificação? '))
+    # print('Digite os paths para:')
+    # easyNg(input('Triggers:\n'), input('Reports:\n'), input('Output:\n'), input(
+        # 'O seu arquivo de reports contém conteúdo para verificação? '))
+
+    easyNg('demo/triggers.txt', 'demo/reports.txt', 'demo/output.txt', True)
 
     print("\n \nPronto! Abra o arquivo de output para ver os resultados.")
